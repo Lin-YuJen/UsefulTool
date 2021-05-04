@@ -1,0 +1,14 @@
+產生RSA公私鑰可以利用OpenSSL，安裝Git後就有包含此library，可以直接使用
+
+開啟GitBash視窗
+
+先利用OpenSSL產生一個PKCS#1規格的私鑰，指令如下：指令包含檔名與長度
+openssl genrsa -out private.pem 2048
+
+利用此私鑰產生公鑰(X509)，指令如下：
+openssl rsa -in private.pem -out public.pem -pubout -outform PEM
+
+再將私鑰從PKCS#1轉為PKCS#8規格，指令如下：
+openssl pkcs8 -topk8 -inform PEM -in private.pem -outform pem -nocrypt -out private_pkcs8.pem
+
+將公私鑰檔案 private_pkcs8.pem 與 public.pem 利用 RSAKeyUtil 讀取後即可使用。

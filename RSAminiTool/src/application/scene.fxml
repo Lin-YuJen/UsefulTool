@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<!-- 此文件使用 gluonhq SceneBuilder 15，需使用java11以上方支援 -->
+<!-- 使用fx:controller與controller.java連動 -->
+<!-- 搭配連動時，使用fx:id來表示物件名，不可用id，會出nullPointException -->
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity"
+	minHeight="-Infinity" minWidth="-Infinity" prefHeight="495.0"
+	prefWidth="508.0" xmlns="http://javafx.com/javafx/15.0.1"
+	xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="application.Controller">
+	<children>
+		<!-- 公鑰選擇 -->
+		<Label layoutX="19.0" layoutY="22.0" text="PublicKey：X509">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</Label>
+		<Group layoutX="161.0" layoutY="22.0">
+			<children>
+				<RadioButton fx:id="radioBtnPublicPEM"
+					mnemonicParsing="false" selected="true" text="PEM格式(Base64)">
+					<toggleGroup>
+						<ToggleGroup fx:id="publicKeyFormat" />
+					</toggleGroup>
+					<font>
+						<Font size="14.0" />
+					</font>
+				</RadioButton>
+				<RadioButton fx:id="radioBtnPublicDER" layoutX="150.0"
+					mnemonicParsing="false" text="DER格式(binary)"
+					toggleGroup="$publicKeyFormat">
+					<font>
+						<Font size="14.0" />
+					</font>
+				</RadioButton>
+			</children>
+		</Group>
+		<TextField fx:id="textFieldPublicKeyLocation"
+			editable="false" layoutX="19.0" layoutY="48.0" prefHeight="23.0"
+			prefWidth="410.0" text="PulbicKeyLocation" />
+		<Button fx:id="btnClickPublic" layoutX="429.0" layoutY="48.0"
+			mnemonicParsing="false" onAction="#getPublicKeyLocation"
+			text="Choose" />
+
+		<!-- 私鑰選擇 -->
+		<Label layoutX="19.0" layoutY="81.0" prefHeight="9.0"
+			prefWidth="167.0" text="PrivateKey：PKCS8">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</Label>
+		<Group layoutX="160.0" layoutY="80.0">
+			<children>
+				<RadioButton fx:id="radioBtnPrivatePEM"
+					mnemonicParsing="false" prefHeight="19.0" prefWidth="143.0"
+					selected="true" text="PEM格式(Base64)">
+					<toggleGroup>
+						<ToggleGroup fx:id="privateKeyFormat" />
+					</toggleGroup>
+					<font>
+						<Font size="14.0" />
+					</font>
+				</RadioButton>
+				<RadioButton fx:id="radioBtnPrivateDER" layoutX="151.0"
+					layoutY="1.0" mnemonicParsing="false" text="DER格式(binary)"
+					toggleGroup="$privateKeyFormat">
+					<font>
+						<Font size="14.0" />
+					</font>
+				</RadioButton>
+			</children>
+		</Group>
+		<TextField fx:id="textFieldPrivateKeyLocation"
+			editable="false" layoutX="19.0" layoutY="109.0" prefHeight="23.0"
+			prefWidth="410.0" text="PrivateKeyLocation" />
+		<Button fx:id="btnClickPrivate" layoutX="429.0" layoutY="109.0"
+			mnemonicParsing="false" onAction="#getPrivateKeyLocation"
+			text="Choose" />
+		<TextArea fx:id="textAreaInput" layoutX="19.0"
+			layoutY="211.0" prefHeight="85.0" prefWidth="469.0" wrapText="true">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</TextArea>
+		<Label layoutX="19.0" layoutY="188.0" text="Input：">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</Label>
+		<Label layoutX="19.0" layoutY="307.0" text="Output：">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</Label>
+		<TextArea fx:id="textAreaOutput" editable="false"
+			layoutX="19.0" layoutY="331.0" prefHeight="85.0" prefWidth="469.0"
+			wrapText="true">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</TextArea>
+		<Button fx:id="btnTextAreaContentExchange" layoutX="234.0"
+			layoutY="302.0" mnemonicParsing="false" onAction="#exchangeContent"
+			text="↑↓" />
+		<Label layoutX="19.0" layoutY="428.0" text="Result：">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</Label>
+		<Button fx:id="btnDecryption" layoutX="357.0" layoutY="426.0"
+			mnemonicParsing="false" onAction="#doDecryption" text="Decrypt" />
+		<Button fx:id="btnEecryption" layoutX="429.0" layoutY="426.0"
+			mnemonicParsing="false" onAction="#doEecryption" text="Encrypt" />
+		<TextField fx:id="resultMessage" editable="false"
+			layoutX="74.0" layoutY="426.0" prefHeight="23.0" prefWidth="269.0" />
+		<Label layoutX="19.0" layoutY="145.0" text="KeySize：">
+			<font>
+				<Font size="14.0" />
+			</font>
+		</Label>
+		<TextField fx:id="textFieldKeySize" layoutX="82.0"
+			layoutY="143.0" text="2048" />
+		<Button fx:id="btnKeySize512" layoutX="241.0" layoutY="143.0"
+			mnemonicParsing="false" onAction="#changeKeySize512" text="512" />
+		<Button fx:id="btnKeySize1024" layoutX="279.0" layoutY="143.0"
+			mnemonicParsing="false" onAction="#changeKeySize1024" text="1024" />
+		<Button fx:id="btnKeySize2048" layoutX="323.0" layoutY="143.0"
+			mnemonicParsing="false" onAction="#changeKeySize2048" text="2048" />
+		<Button layoutX="358.0" layoutY="457.0" mnemonicParsing="false"
+			onAction="#resetInputAndOutput" prefHeight="23.0" prefWidth="131.0"
+			text="Reset" />
+		<Button layoutX="14.0" layoutY="457.0" mnemonicParsing="false"
+			onAction="#howToGetRSAKeyByOpenSSL" prefHeight="23.0"
+			prefWidth="191.0" text="如何利用OpenSSL建立公私鑰" />
+
+	</children>
+</AnchorPane>
