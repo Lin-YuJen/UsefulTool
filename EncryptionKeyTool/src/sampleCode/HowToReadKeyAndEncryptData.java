@@ -6,6 +6,7 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 
 import encryption.EncryptionUtil;
+import encryption.EncryptionUtil2;
 import encryption.RSAKeyUtil;
 
 public class HowToReadKeyAndEncryptData {
@@ -23,9 +24,21 @@ public class HowToReadKeyAndEncryptData {
 		PublicKey publicKey = rsaKeyUtil.readPEMPublicKey(publicKeyPath);
 		
 		// 建立加密工具類別，
-		EncryptionUtil encryptionUtil = new EncryptionUtil.Builder().setPrivateKey(privateKey).setPublicKey(publicKey)
-				.setAlgorithm("RSA").setKeySize(2048).build();
-		
+		EncryptionUtil encryptionUtil = new EncryptionUtil.Builder()
+				.setPrivateKey(privateKey)
+				.setPublicKey(publicKey)
+				.setAlgorithm("RSA")
+				.setKeySize(2048)
+				.build();
+
+//		// 多執行續對應修正版
+//		EncryptionUtil2 encryptionUtil2 = new EncryptionUtil2.Builder()
+//				.setPrivateKey(privateKey)
+//				.setPublicKey(publicKey)
+//				.setAlgorithm("RSA")
+//				.setKeySize(2048)
+//				.build();
+
 		// 加解密用法如下：
 		String message = "hello youtube.";
 		System.out.println("OriginalMessage is ====\n"+message);
